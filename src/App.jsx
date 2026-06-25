@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import ProductPage from './pages/ProductPage.jsx';
 import FavoritesPage from './pages/FavoritesPage.jsx';
-import AdminPage from './admin/AdminPage.jsx';
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
 import CartDrawer from './components/cart/CartDrawer.jsx';
@@ -19,7 +18,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/producto/:id" element={<ProductPage />} />
           <Route path="/favoritos" element={<FavoritesPage />} />
-          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
       <Footer />

@@ -1,14 +1,28 @@
 export const fallbackConfig = {
-  nombre_tienda: 'ziX Store', logo: '', banner: 'https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=1800&q=85',
-  titulo_banner: 'Accesorios premium para tu iPhone', subtitulo_banner: 'Diseño elegante, protección real y tecnología lista para acompañarte cada día.',
-  telefono: '+1 555 000 000', correo: 'hola@zixstore.com', instagram: 'https://instagram.com/', facebook: 'https://facebook.com/', tiktok: 'https://tiktok.com/', direccion: 'Online Store', tema: 'light', color_principal: '#111114', color_secundario: '#6d5dfc', horario: 'Lun–Sáb 9:00–19:00'
+  nombre_tienda: 'ziX Store', 
+  logo: 'https://qawaafuhxutblwirdbvq.supabase.co/storage/v1/object/public/Productos/LOGO%20ZIX.jpeg', 
+  banner: 'https://qawaafuhxutblwirdbvq.supabase.co/storage/v1/object/public/Productos/BANNER.png',
+  titulo_banner: 'Accesorios premium para tu iPhone', 
+  subtitulo_banner: 'Diseño elegante, protección real y tecnología lista para acompañarte cada día.',
+  telefono: '+1 555 000 000', 
+  correo: 'hola@zixstore.com', 
+  instagram: 'https://instagram.com/', 
+  facebook: 'https://facebook.com/', 
+  tiktok: 'https://tiktok.com/', 
+  direccion: 'Online Store', 
+  tema: 'light', 
+  color_principal: '#111114', 
+  color_secundario: '#6d5dfc', 
+  horario: 'Lun–Sáb 9:00–19:00'
 };
+
 export const fallbackCategorias = [
   { id: 'cases', nombre: 'Fundas', icono: '📱', orden: 1, activo: true },
   { id: 'chargers', nombre: 'Carga', icono: '⚡', orden: 2, activo: true },
   { id: 'protectors', nombre: 'Protección', icono: '🛡️', orden: 3, activo: true },
   { id: 'audio', nombre: 'Audio', icono: '🎧', orden: 4, activo: true }
 ];
+
 export const fallbackSubcategorias = [
   { id: 'all-11', categoria_id: 'cases', nombre: 'iPhone 11', orden: 1, activo: true }, { id: 'all-12', categoria_id: 'cases', nombre: 'iPhone 12', orden: 2, activo: true },
   { id: 'all-13', categoria_id: 'cases', nombre: 'iPhone 13', orden: 3, activo: true }, { id: 'all-14', categoria_id: 'cases', nombre: 'iPhone 14', orden: 4, activo: true },
@@ -16,6 +30,7 @@ export const fallbackSubcategorias = [
   { id: 'magsafe', categoria_id: 'chargers', nombre: 'MagSafe', orden: 1, activo: true }, { id: 'usb-c', categoria_id: 'chargers', nombre: 'USB-C', orden: 2, activo: true },
   { id: 'glass', categoria_id: 'protectors', nombre: 'Cristal templado', orden: 1, activo: true }, { id: 'privacy', categoria_id: 'protectors', nombre: 'Privacidad', orden: 2, activo: true }
 ];
+
 const img = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=85`;
 export const fallbackProductos = [
   { id: 'p1', nombre: 'Funda Clear MagSafe Pro', descripcion: 'Funda transparente con imanes reforzados y protección anti-impacto.', precio: 29.99, precio_anterior: 39.99, categoria_id: 'cases', subcategoria_id: 'all-15', imagen_principal: img('1601593346740-925612772716'), imagenes: [img('1601593346740-925612772716')], stock: 18, nuevo: true, oferta: true, destacado: true, marca: 'ziX', activo: true, fecha: '2026-06-01' },

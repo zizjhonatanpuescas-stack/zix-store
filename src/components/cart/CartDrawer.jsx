@@ -21,30 +21,24 @@ export default function CartDrawer() {
     const productos = cart
       .map(
         (item) =>
-          `📦 ${item.nombre}
+          `${item.nombre}
 Cantidad: ${item.qty}
-Precio: ${currency(item.precio)}
-Subtotal: ${currency(item.precio * item.qty)}`
+Precio: ${currency(item.precio)}`
       )
       .join('\n\n');
 
     const mensaje = encodeURIComponent(
-`🛒 *Nuevo pedido - ziX Store*
+`Nuevo pedido - ziX Store
 
 ${productos}
 
-━━━━━━━━━━━━━━━━━━
-
-💰 *TOTAL: ${currency(cartTotal)}*
-
-👤 Nombre:
-📍 Dirección:
-🚚 Método de entrega:
-💳 Método de pago:
-📝 Observaciones:`
+Total: ${currency(cartTotal)}`
     );
 
-    window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+    window.open(
+      `https://wa.me/${telefono}?text=${mensaje}`,
+      '_blank'
+    );
   };
 
   return (

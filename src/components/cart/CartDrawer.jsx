@@ -1,4 +1,153 @@
 import { Minus, Plus, Trash2, X } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 import { currency } from '../../utils/format';
-export default function CartDrawer() { const { cartOpen, setCartOpen, cart, updateQty, removeFromCart, clearCart, cartTotal } = useStore(); return <div className={`fixed inset-0 z-50 ${cartOpen ? '' : 'pointer-events-none'}`}><div onClick={()=>setCartOpen(false)} className={`absolute inset-0 bg-black/35 transition ${cartOpen ? 'opacity-100' : 'opacity-0'}`}/><aside className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white p-5 shadow-premium transition duration-300 ${cartOpen ? 'translate-x-0' : 'translate-x-full'}`}><div className="flex items-center justify-between"><h2 className="text-2xl font-black">Carrito</h2><button onClick={()=>setCartOpen(false)}><X/></button></div><div className="mt-6 flex-1 space-y-4 overflow-y-auto">{cart.length===0 && <p className="rounded-3xl bg-mist p-8 text-center text-black/50">Tu carrito está vacío.</p>}{cart.map(item=><div key={item.id} className="flex gap-3 rounded-3xl bg-mist p-3"><img src={item.imagen_principal} alt={item.nombre} className="h-20 w-20 rounded-2xl object-cover"/><div className="flex-1"><p className="font-bold">{item.nombre}</p><p className="text-sm text-black/50">{currency(item.precio)}</p><div className="mt-2 flex items-center gap-2"><button onClick={()=>updateQty(item.id,item.qty-1)}><Minus size={16}/></button><span className="font-bold">{item.qty}</span><button onClick={()=>updateQty(item.id,item.qty+1)}><Plus size={16}/></button><button className="ml-auto" onClick={()=>removeFromCart(item.id)}><Trash2 size={16}/></button></div></div></div>)}</div><div className="border-t pt-5"><div className="mb-4 flex justify-between text-xl font-black"><span>Total</span><span>{currency(cartTotal)}</span></div><button className="btn-primary w-full">Finalizar por WhatsApp</button>{cart.length>0 && <button onClick={clearCart} className="mt-3 w-full text-sm font-bold text-black/45">Vaciar carrito</button>}</div></aside></div>; }
+
+export default function CartDrawer() {
+  const {
+    cartOpen,
+    setCartOpen,
+    cart,
+    updateQty,
+    removeFromCart,
+    clearCart,
+    cartTotal,
+  } = useStore();
+
+  const finalizarWhatsApp = () => {
+    if (cart.length === 0) return;
+
+    const telefono = '51926027110';
+
+    const productos = cart
+      .map(
+        (item) =>
+          `📦 ${item.nombre}
+Cantidad: ${item.qty}
+Precio: ${currency(item.precio)}
+Subtotal: ${currency(item.precio * item.qty)}`
+      )
+      .join('\n\n');
+
+    const mensaje = encodeURIComponent(
+`🛒 *Nuevo pedido - ziX Store*
+
+${productos}
+
+━━━━━━━━━━━━━━━━━━
+
+💰 *TOTAL: ${currency(cartTotal)}*
+
+👤 Nombre:
+📍 Dirección:
+🚚 Método de entrega:
+💳 Método de pago:
+📝 Observaciones:`
+    );
+
+    window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+  };
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 ${
+        cartOpen ? '' : 'pointer-events-none'
+      }`}
+    >
+      <div
+        onClick={() => setCartOpen(false)}
+        className={`absolute inset-0 bg-black/35 transition ${
+          cartOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
+
+      <aside
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white p-5 shadow-premium transition duration-300 ${
+          cartOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-black">Carrito</h2>
+
+          <button onClick={() => setCartOpen(false)}>
+            <X />
+          </button>
+        </div>
+
+        <div className="mt-6 flex-1 space-y-4 overflow-y-auto">
+          {cart.length === 0 && (
+            <p className="rounded-3xl bg-mist p-8 text-center text-black/50">
+              Tu carrito está vacío.
+            </p>
+          )}
+
+          {cart.map((item) => (
+            <div
+              key={item.id}
+              className="flex gap-3 rounded-3xl bg-mist p-3"
+            >
+              <img
+                src={item.imagen_principal}
+                alt={item.nombre}
+                className="h-20 w-20 rounded-2xl object-cover"
+              />
+
+              <div className="flex-1">
+                <p className="font-bold">{item.nombre}</p>
+
+                <p className="text-sm text-black/50">
+                  {currency(item.precio)}
+                </p>
+
+                <div className="mt-2 flex items-center gap-2">
+                  <button
+                    onClick={() => updateQty(item.id, item.qty - 1)}
+                  >
+                    <Minus size={16} />
+                  </button>
+
+                  <span className="font-bold">{item.qty}</span>
+
+                  <button
+                    onClick={() => updateQty(item.id, item.qty + 1)}
+                  >
+                    <Plus size={16} />
+                  </button>
+
+                  <button
+                    className="ml-auto"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t pt-5">
+          <div className="mb-4 flex justify-between text-xl font-black">
+            <span>Total</span>
+            <span>{currency(cartTotal)}</span>
+          </div>
+
+          <button
+            className="btn-primary w-full"
+            onClick={finalizarWhatsApp}
+          >
+            Finalizar por WhatsApp
+          </button>
+
+          {cart.length > 0 && (
+            <button
+              onClick={clearCart}
+              className="mt-3 w-full text-sm font-bold text-black/45"
+            >
+              Vaciar carrito
+            </button>
+          )}
+        </div>
+      </aside>
+    </div>
+  );
+}

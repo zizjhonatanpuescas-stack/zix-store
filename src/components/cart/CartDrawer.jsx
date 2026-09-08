@@ -119,7 +119,7 @@ Total: ${currency(cartTotal)}`
           ))}
         </div>
 
-        <div className="border-t pt-5">
+        <div className="border-t pt-5 pb-safe">
           <div className="mb-4 flex justify-between text-xl font-black">
             <span>Total</span>
             <span>{currency(cartTotal)}</span>
